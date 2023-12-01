@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         infoBinding.habitacionesBtn.setOnClickListener(View.OnClickListener {
 
             setContentView(habitacionesBinding.root)
+
             habitacionesBinding.vistaHabitaciones.adapter=HabitacionesAdapter(listOf(
                 Habitaciones("1","paraiso","1/5/22"),
                 Habitaciones("2","butterfly","1/5/22"),
@@ -50,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                 Habitaciones("7","movile","1/5/22"),
                 Habitaciones("8","fear","1/5/22"),
                 Habitaciones("9","paraiso2","1/5/22"),
-                Habitaciones("10","paraiso3","1/5/22"),
+                Habitaciones("10","paraiso3","1/5/22")
 
 
             )
@@ -60,9 +61,10 @@ class MainActivity : AppCompatActivity() {
                         TODO("Not yet implemented")
 
 
-                }
+                    }
 
-        })
+                }
+            )
         habitacionesBinding.infoBtn.setOnClickListener(View.OnClickListener {
 
             setContentView(infoBinding.root)
@@ -72,12 +74,14 @@ class MainActivity : AppCompatActivity() {
             setContentView(habitacionesBinding.root)
         })
 
-    //barraInfo()
-    //barraHab()
 
+
+    })
     }
+}
 
-
+        //barraInfo()
+        //barraHab()
 /*private fun barraInfo () {
     val MainBinding = ActivityMainBinding.inflate(layoutInflater)
     val infoBinding = InfoBinding.inflate(layoutInflater)
@@ -107,4 +111,3 @@ class MainActivity : AppCompatActivity() {
         })
 
     }*/
-}

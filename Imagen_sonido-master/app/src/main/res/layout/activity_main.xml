@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+        <ImageButton
+            android:id="@+id/gatito"
+            android:layout_width="185dp"
+            android:layout_height="170dp"
+            android:layout_marginBottom="20dp"
+            android:clickable="true"
+            android:src="@drawable/gatito"
+            tools:src="@drawable/gatito" />
+
+        <ImageButton
+            android:id="@+id/perrito"
+            android:layout_width="185dp"
+            android:layout_height="163dp"
+            android:layout_marginBottom="20dp"
+            android:clickable="true"
+            android:src="@drawable/perrazo"
+            tools:src="@drawable/perrazo" />
+
+        <ImageButton
+            android:id="@+id/asno"
+            android:layout_width="180dp"
+            android:layout_height="153dp"
+            android:clickable="true"
+            android:src="@drawable/asnito"
+            tools:src="@drawable/asnito" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -37,7 +37,7 @@ class login : ComponentActivity() {
                 Surface(
                     Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
-                    LoginScreen()
+                    login()
                 }
             }
         }

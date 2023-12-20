@@ -1,3 +1,4 @@
+
 package com.example.whatsapp
 
 import android.os.Bundle
@@ -34,8 +35,22 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.whatsapp.ui.theme.WhatsAppTheme
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Send
+//import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.unit.dp
 
 class MainActivity : ComponentActivity() {
+    @ExperimentalComposeUiApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -45,51 +60,79 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    ChatScreen()
                 }
             }
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+
+
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    var text by rememberSaveable { mutableStateOf("Usuario") }
-    var password by remember { mutableStateOf("") }
+fun ChatScreen() {
+    var messageText by remember { mutableStateOf("") }
+    var chatMessages by remember { mutableStateOf(listOf("Hello!", "Hi there!")) }
 
-        Column(modifier=modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-            Image(
-                painter = painterResource(id = R.drawable.wasap),
-                contentDescription = "Foto contacto",
-                Modifier.size(250.dp)
-
-            )
-            TextField(
-                value = text,
-                onValueChange = { text = it },
-                label = { Text("Usuario") }
-            )
-            TextField(
-                value = password,
-                onValueChange = { password = it },
-                label = { Text("Contraseña") },
-                visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-            )
-            Spacer(Modifier.size(8.dp))
-            Button(onClick = { }, shape = CutCornerShape(0)) {
-                Text("Inicio")
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        // Chat messages
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .background(Color.Gray.copy(alpha = 0.1f))
+                .padding(16.dp)
+        ) {
+            chatMessages.forEach { message ->
+                Text(text = message, modifier = Modifier.padding(8.dp))
             }
-
         }
-    }
 
+        // Compose message input
+        var keyboardController = LocalSoftwareKeyboardController.current
+        OutlinedTextField(
+            value = messageText,
+            onValueChange = { messageText = it },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            keyboardOptions = KeyboardOptions.Default.copy(
+                imeAction = ImeAction.Send
+            ),
+            keyboardActions = KeyboardActions(
+                onSend = {
+                    if (messageText.isNotEmpty()) {
+                        chatMessages = chatMessages + messageText
+                        messageText = ""
+                        keyboardController?.hide()
+                    }
+                }
+            ),
+            trailingIcon = {
+                IconButton(
+                    onClick = {
+                        if (messageText.isNotEmpty()) {
+                            chatMessages = chatMessages + messageText
+                            messageText = ""
+                            keyboardController?.hide()
+                        }
+                    }
+                ) {
+                    Icon(imageVector = Icons.Default.Send, contentDescription = "Send")
+                }
+            }
+        )
+    }
+}
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun PreviewChatScreen() {
     WhatsAppTheme {
-        Greeting("Android")
+        ChatScreen()
     }
 }
